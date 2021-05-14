@@ -1,6 +1,6 @@
 module Api
   module V1
-    class AirlinesController < ApplicationController;
+    class AirlinesController < ApplicationController
       def index
         airlines = Airline.all
         render json: AirlineSerializer.new(airlines, options).serialized_json
@@ -24,7 +24,7 @@ module Api
       def update
         airline = Airline.find_by!(slug: params[:slug])
         if airline.update(airline_params)
-          render json: AirlineSerializer.new(airlin, options).serialized_json
+          render json: AirlineSerializer.new(airline, options).serialized_json
         else
           render json: { error: airline.errors.full_messages }, status: 422
         end

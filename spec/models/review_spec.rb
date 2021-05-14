@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Review, type: :model do
-  context 'validations' do
+  describe 'validations' do
     subject { build(:review) }
     it { is_expected.to be_valid }
 

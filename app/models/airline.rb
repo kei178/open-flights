@@ -3,6 +3,8 @@ class Airline < ApplicationRecord
 
   before_create :slugify
 
+  validates :name, presence: true
+
   def slugify
     self.slug = name.parameterize
   end
