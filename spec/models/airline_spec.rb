@@ -1,6 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe Airline, type: :model do
+  describe '#avg_score' do
+    it 'returns avg score of reviews' do
+      airline = create(:airline_with_reviews)
+      avg = airline.reviews.average(:score).round(2).to_f
+      expect(airline.avg_score).to eq(avg)
+    end
+
+    it 'returns 0 when no reviews' do
+      airline = build(:airline)
+      expect(airline.avg_score).to be_zero
+    end
+  end
+
   describe 'callback' do
     let(:airline) { build(:airline) }
 
