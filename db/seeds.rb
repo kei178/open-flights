@@ -31,3 +31,13 @@ Airline.create([
     image_url: "https://open-flights.s3.amazonaws.com/American-Airlines.png" 
   }
 ])
+
+Airline.all.each do |airline|
+  2.times do
+    airline.reviews.create(
+      title: 'Awesome',
+      description: 'The service was amaizing!',
+      score: 5
+    )
+  end
+end
