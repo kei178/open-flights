@@ -9,9 +9,9 @@ RSpec.describe 'API V1 Review requests' do
       params = {
         review: {
           title: 'Sample review',
-          descriptioin: 'This airline was awesome!',
-          airline_id: airline.id
-        }
+          description: 'This airline was awesome!'
+        },
+        airline_id: airline.id
       }.to_json
 
       post '/api/v1/reviews',
@@ -22,20 +22,19 @@ RSpec.describe 'API V1 Review requests' do
       expect(airline.reviews.count).to eq(1)
     end
 
-    it 'does not create a review when params are invalid' do
+    it 'droes not create a review when params are invalid' do
       params = {
         review: {
           title: 'Sample review',
-          descriptioin: 'This airline was awesome!'
+          description: 'This airline was awesome!'
         }
       }.to_json
 
-      post '/api/v1/reviews',
-           params: params,
-           headers: { 'CONTENT_TYPE': 'application/json' }
-
-      expect(response.status).to eq(422)
-      expect(airline.reviews.count).to eq(0)
+      expect do
+        post '/api/v1/reviews',
+             params: params,
+             headers: { 'CONTENT_TYPE': 'application/json' }
+      end.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
